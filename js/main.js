@@ -159,18 +159,23 @@
     let playing = false;
     let fadeTimer = null;
 
-    function fadeTo(target, done) {
+    // Cosmetic volume fade. iOS Safari ignores volume changes, so the loop
+    // is capped by step count and never gates playback control.
+    function fadeVolume(target) {
       clearInterval(fadeTimer);
+      let steps = 0;
       fadeTimer = setInterval(() => {
-        const step = 0.04;
-        if (Math.abs(audio.volume - target) <= step) {
-          audio.volume = target;
+        steps++;
+        const v = audio.volume;
+        if (Math.abs(v - target) <= 0.05 || steps >= 24) {
+          try { audio.volume = target; } catch (e) {}
           clearInterval(fadeTimer);
-          if (done) done();
         } else {
-          audio.volume += audio.volume < target ? step : -step;
+          try {
+            audio.volume = Math.min(1, Math.max(0, v + (v < target ? 0.05 : -0.05)));
+          } catch (e) {}
         }
-      }, 30);
+      }, 28);
     }
 
     function setUI(on) {
@@ -183,18 +188,20 @@
     }
 
     function play() {
-      audio.volume = 0;
+      try { audio.volume = 0; } catch (e) {}
       const p = audio.play();
       if (p && p.catch) p.catch(() => {});
       playing = true;
       setUI(true);
-      fadeTo(TARGET);
+      fadeVolume(TARGET);
     }
 
     function pause() {
+      // Stop immediately and reliably (works on iOS where volume is read-only).
+      clearInterval(fadeTimer);
       playing = false;
       setUI(false);
-      fadeTo(0, () => audio.pause());
+      audio.pause();
     }
 
     btn.addEventListener("click", () => (playing ? pause() : play()));
