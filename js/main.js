@@ -148,4 +148,68 @@
       else target.scrollIntoView({ behavior: "smooth" });
     });
   });
+
+  /* ---------- ambient background music ---------- */
+  (function () {
+    const audio = document.getElementById("bgm");
+    const btn = document.getElementById("soundToggle");
+    if (!audio || !btn) return;
+
+    const TARGET = 0.32;
+    let playing = false;
+    let fadeTimer = null;
+
+    function fadeTo(target, done) {
+      clearInterval(fadeTimer);
+      fadeTimer = setInterval(() => {
+        const step = 0.04;
+        if (Math.abs(audio.volume - target) <= step) {
+          audio.volume = target;
+          clearInterval(fadeTimer);
+          if (done) done();
+        } else {
+          audio.volume += audio.volume < target ? step : -step;
+        }
+      }, 30);
+    }
+
+    function setUI(on) {
+      btn.classList.toggle("is-playing", on);
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+      btn.setAttribute(
+        "aria-label",
+        on ? "Hintergrundmusik ausschalten" : "Hintergrundmusik einschalten"
+      );
+    }
+
+    function play() {
+      audio.volume = 0;
+      const p = audio.play();
+      if (p && p.catch) p.catch(() => {});
+      playing = true;
+      setUI(true);
+      fadeTo(TARGET);
+    }
+
+    function pause() {
+      playing = false;
+      setUI(false);
+      fadeTo(0, () => audio.pause());
+    }
+
+    btn.addEventListener("click", () => (playing ? pause() : play()));
+
+    // pause while the tab is hidden, resume if it was playing
+    let resumeOnReturn = false;
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && playing) {
+        resumeOnReturn = true;
+        audio.pause();
+      } else if (!document.hidden && resumeOnReturn) {
+        resumeOnReturn = false;
+        const p = audio.play();
+        if (p && p.catch) p.catch(() => {});
+      }
+    });
+  })();
 })();
