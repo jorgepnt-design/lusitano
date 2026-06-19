@@ -149,6 +149,53 @@
     });
   });
 
+  /* ---------- video autoplay resilience (iOS Safari) ---------- */
+  (function () {
+    const vids = Array.prototype.slice.call(document.querySelectorAll("video"));
+    if (!vids.length) return;
+
+    function tryPlay(v) {
+      const p = v.play();
+      if (p && p.catch) p.catch(() => {});
+    }
+
+    vids.forEach((v) => {
+      v.muted = true;
+      v.defaultMuted = true;
+      v.playsInline = true;
+      v.setAttribute("muted", "");
+      v.setAttribute("playsinline", "");
+      v.setAttribute("webkit-playsinline", "");
+      // start as soon as the clip is decodable, and immediately if already so
+      v.addEventListener("loadeddata", () => tryPlay(v));
+      v.addEventListener("canplay", () => tryPlay(v));
+      if (v.readyState >= 2) tryPlay(v);
+    });
+
+    // re-assert play when a video scrolls into view (covers iOS + lazy load).
+    // Never pause off-screen: both clips are short muted loops.
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting && e.target.paused) tryPlay(e.target);
+          });
+        },
+        { threshold: 0.1 }
+      );
+      vids.forEach((v) => io.observe(v));
+    }
+
+    // first user gesture kick (covers iOS gesture / low-power gating)
+    function kick() {
+      vids.forEach(tryPlay);
+      document.removeEventListener("touchstart", kick);
+      document.removeEventListener("click", kick);
+    }
+    document.addEventListener("touchstart", kick, { passive: true });
+    document.addEventListener("click", kick);
+  })();
+
   /* ---------- ambient background music ---------- */
   (function () {
     const audio = document.getElementById("bgm");
