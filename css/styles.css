@@ -15,7 +15,7 @@
 
   --pad: clamp(1.25rem, 5vw, 6rem);
   --max: 1400px;
-  --serif: "Fraunces", Georgia, serif;
+  --serif: "Playfair Display", Georgia, serif;
   --sans: "Inter", system-ui, sans-serif;
 }
 
@@ -149,7 +149,7 @@ em{ font-style:italic; color:var(--accent); }
 }
 .hero__inner{ position:relative; max-width:min(58rem,92vw); }
 .hero__title{
-  font-family:var(--serif); font-weight:300;
+  font-family:var(--serif); font-weight:400;
   font-size:clamp(3.2rem,11vw,9rem); line-height:.94;
   letter-spacing:-.02em; margin:.7rem 0 1.5rem;
 }
@@ -182,7 +182,7 @@ em{ font-style:italic; color:var(--accent); }
   background:linear-gradient(var(--bg),var(--bg-2));
 }
 .thesis__line{
-  font-family:var(--serif); font-weight:300;
+  font-family:var(--serif); font-weight:400;
   font-size:clamp(2.4rem,7.5vw,6.5rem); line-height:1.02;
   letter-spacing:-.02em; max-width:18ch;
 }
@@ -211,6 +211,29 @@ em{ font-style:italic; color:var(--accent); }
 }
 .feature__text p{ color:var(--muted); max-width:38ch; margin-bottom:1rem; }
 .feature__text p:first-of-type{ color:var(--ink); }
+
+/* spec strip */
+.specs{
+  display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:1.4rem 1.6rem; max-width:34rem;
+  margin-top:2rem; padding-top:1.7rem; border-top:1px solid var(--line);
+}
+.specs dt{
+  font-size:.7rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:.4rem;
+}
+.specs dd{
+  font-family:var(--serif); font-weight:500; line-height:1;
+  font-size:clamp(1.45rem,2.4vw,1.9rem); color:var(--ink);
+  display:flex; align-items:baseline; gap:.34rem;
+}
+.specs dd span{
+  font-family:var(--sans); font-weight:600; font-size:.66rem;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--accent);
+}
+@media (max-width:520px){
+  .specs{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.2rem 1.2rem; }
+}
 
 /* ---------- 4. GALLERY BAND ---------- */
 .band{
@@ -270,7 +293,7 @@ em{ font-style:italic; color:var(--accent); }
 }
 .cta__inner{ max-width:46rem; margin-inline:auto; }
 .cta__title{
-  font-family:var(--serif); font-weight:300;
+  font-family:var(--serif); font-weight:400;
   font-size:clamp(2.4rem,7vw,5.5rem); line-height:1.02;
   letter-spacing:-.02em; margin:1rem 0 1.1rem;
 }
@@ -290,7 +313,7 @@ em{ font-style:italic; color:var(--accent); }
 .footer__marquee{ padding:clamp(2rem,5vh,3.5rem) 0; white-space:nowrap; }
 .footer__track{
   display:inline-flex; align-items:center; gap:1.4rem;
-  font-family:var(--serif); font-weight:300;
+  font-family:var(--serif); font-weight:400;
   font-size:clamp(1.8rem,6vw,4.5rem); color:var(--ink);
   will-change:transform;
 }
