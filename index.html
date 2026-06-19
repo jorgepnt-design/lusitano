@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lusitano</title>
+  <meta name="description" content="Lusitano – Website im Aufbau.">
+  <style>
+    :root {
+      --bg: #0f1115;
+      --surface: #171a21;
+      --text: #e8eaed;
+      --muted: #9aa0a6;
+      --accent: #c8a253;
+      --accent-hover: #d9b56a;
+      --border: #2a2e37;
+      --radius: 14px;
+      --maxw: 1100px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(15, 17, 21, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .logo { font-size: 1.35rem; font-weight: 700; letter-spacing: 0.5px; color: var(--text); text-decoration: none; }
+    .logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    /* Hero */
+    .hero {
+      min-height: calc(100vh - 64px);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 60px 20px;
+      background: radial-gradient(ellipse at top, rgba(200,162,83,0.08), transparent 60%);
+    }
+    .hero h1 { font-size: clamp(2.5rem, 7vw, 4.5rem); font-weight: 800; letter-spacing: -1px; margin-bottom: 18px; }
+    .hero h1 span { color: var(--accent); }
+    .hero p { font-size: clamp(1.05rem, 2.5vw, 1.3rem); color: var(--muted); max-width: 600px; margin-bottom: 36px; }
+    .btn {
+      display: inline-block; padding: 14px 32px; border-radius: 999px;
+      background: var(--accent); color: #1a1a1a; font-weight: 600; text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn:hover { background: var(--accent-hover); transform: translateY(-2px); }
+
+    /* Sections */
+    section { padding: 80px 0; border-top: 1px solid var(--border); }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 16px; text-align: center; }
+    .section-sub { color: var(--muted); text-align: center; max-width: 560px; margin: 0 auto 48px; }
+
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 32px; transition: border-color 0.2s, transform 0.2s;
+    }
+    .card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .card h3 { font-size: 1.25rem; margin-bottom: 10px; }
+    .card p { color: var(--muted); font-size: 0.97rem; }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--border); padding: 40px 0; text-align: center; color: var(--muted); font-size: 0.9rem; }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav">
+      <a href="#" class="logo">Lusi<span>tano</span></a>
+      <ul class="nav-links">
+        <li><a href="#about">Über</a></li>
+        <li><a href="#features">Angebot</a></li>
+        <li><a href="#contact">Kontakt</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Willkommen bei <span>Lusitano</span></h1>
+      <p>Hier entsteht etwas Neues. Diese Seite ist das Grundgerüst – Inhalte folgen Schritt für Schritt.</p>
+      <a href="#contact" class="btn">Kontakt aufnehmen</a>
+    </section>
+
+    <section id="about" class="container">
+      <h2 class="section-title">Über</h2>
+      <p class="section-sub">Platzhalter-Text. Hier kannst du beschreiben, worum es bei Lusitano geht.</p>
+    </section>
+
+    <section id="features" class="container">
+      <h2 class="section-title">Angebot</h2>
+      <p class="section-sub">Drei Platzhalter-Bereiche – ersetze sie durch deine echten Inhalte.</p>
+      <div class="cards">
+        <div class="card">
+          <h3>Bereich 1</h3>
+          <p>Kurze Beschreibung des ersten Angebots oder der ersten Leistung.</p>
+        </div>
+        <div class="card">
+          <h3>Bereich 2</h3>
+          <p>Kurze Beschreibung des zweiten Angebots oder der zweiten Leistung.</p>
+        </div>
+        <div class="card">
+          <h3>Bereich 3</h3>
+          <p>Kurze Beschreibung des dritten Angebots oder der dritten Leistung.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="container">
+      <h2 class="section-title">Kontakt</h2>
+      <p class="section-sub">Schreib uns – wir melden uns zurück.</p>
+      <div style="text-align:center;">
+        <a href="mailto:jorgepnt@gmail.com" class="btn">E-Mail schreiben</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> Lusitano. Alle Rechte vorbehalten.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
